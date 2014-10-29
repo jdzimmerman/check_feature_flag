@@ -1,0 +1,39 @@
+<html>
+<head>
+	<title>
+	<%= @title %>
+	</title>
+  <style>
+  body h1,body h2,body h3,body h4,body h6, th{
+  font-family:'Proxima N W15 Reg',   Helvetica, sans-serif
+}
+
+body h5, td{
+  font-family:'Proxima N W15 Smbd',  Helvetica, sans-serif;
+  font-size: 10pt
+}
+
+.bold{
+  font-family:'Proxima N W15 Smbd',  Helvetica, sans-serif
+}</style>
+</head>
+<body>
+  <h4>Nlvx Feature Flags in Staging</h4>
+   <table>
+   <tr>
+   <th>Flag Name</th>
+   <th>Status</th>
+   </tr>
+   <tr>
+     <% @flags.each do |key, value| %>
+     <td>
+     <%= key %>
+
+     </td>
+     <td><%= value %></td>
+   </tr>
+    <% end %>
+
+ </table>
+</body>
+</html>
