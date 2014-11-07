@@ -18,7 +18,7 @@ end
 
 get '/' do
    @title = "Feature Flag Status in Staging"
-  @flag_names = ["send_campaign","LIST_UPLOAD_THREADING","query_locks","recipient_lists","campaign_pause_play"]
+  @flag_names = ["send_campaign","LIST_UPLOAD_THREADING","query_locks","recipient_lists","campaign_pause_play","overview_stats"]
   @flags = Hash.new
   @flag_names.each do |f| 
 	status = check_flag(f)
