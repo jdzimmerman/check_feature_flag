@@ -2,7 +2,15 @@ require 'rubygems'
 require 'json'
 require 'httparty'
 
-BASE_URL="http://stlb-001.sjc1.sendgrid.net:8082/api/feature_toggle/check.json"
+if ARGV[0] == "local"
+	hostname = "0.0.0.0"
+else
+	hostname = "stlb-001.sjc1.sendgrid.net" 
+end
+
+BASE_URL="http://#{hostname}:8082/api/feature_toggle/check.json"
+#puts BASE_URL
+
 flags = ["send_campaign","LIST_UPLOAD_THREADING","query_locks","recipient_lists","campaign_pause_play","overview_stats"]
 def check_flag(fname)
 	url = "#{BASE_URL}?feature_name=#{fname}&app_name=nlvx"
@@ -11,7 +19,15 @@ def check_flag(fname)
     return flag_status["enabled"]
 end
 
-flags.each do |f|
-	print "#{f}:  "
-	puts check_flag(f)
+#error handling if connection fails
+begin
+	#hcheck_resp = HTTParty.get("http://#{hostname}:8082/api/healthcheck/alive.json")
+	flags.each do |f|
+	   print "#{f}:  "
+	   puts check_flag(f)
+    end
+#rescue Exception => e
+rescue Errno::ECONNREFUSED => e
+	print e.message 
+	puts " This means APID is not running, or port forwarding may not be working in your local environment" 
 end
