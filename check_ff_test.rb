@@ -4,6 +4,8 @@ require 'httparty'
 
 if ARGV[0] == "local"
 	hostname = "0.0.0.0"
+elsif ARGV[0] == "prod"
+	hostname = "lbapi-002.sjc1.sendgrid.net"	
 else
 	hostname = "stlb-001.sjc1.sendgrid.net" 
 end
